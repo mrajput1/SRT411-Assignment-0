@@ -1,0 +1,206 @@
+---
+title: "SRT411 Assignment0"
+author: "Moksh Rajput"
+date: "February 16,2018"
+output:
+  pdf_document: default
+  word_document: default
+---
+Github username: MRajput1
+###Introduction
+This file shows the solution to taks provided in "A (very) short introduction to R" BY Paul Torfs & Claudia Brauer.
+This is part of Assignment 0 for SRT411, Fall semester at Seneca College.
+
+###link to document 
+_https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf_
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Todo 1
+Compute the difference between 2084 and the year you started at Seneca Colelge and divide
+this by the difference between 2018 and the year you were born. Multiply this with 100 to get
+the percentage of your life you have spent at this university. Use brackets if you need them.
+
+```{r todo1}
+((2018-2017)/(2018-1998))*100 
+```
+
+###Todo2
+Repeat the previous ToDo, but with several steps in between. You can give the variables
+any name you want, but the name has to start with a letter.
+
+```{r todo2}
+years_college = 2018-2017 
+years_life = 2018-1998 
+college_to_life = (years_college/years_life)*100 
+college_to_life 
+```
+
+###Todo3
+Compute the sum of 4, 5, 8 and 11 by first combining them into a vector and then using the function sum.
+
+```{r todo3}
+b=c(4,5,8,11) 
+sum(b) 
+```
+
+###Todo4
+Plot 100 normal random numbers.
+
+```{r todo4}
+y=rnorm(100) 
+plot(y) 
+```
+
+###Todo5
+Find help for the sqrt function.
+
+```{r todo5}
+help("sqrt") 
+```
+
+###Todo6
+Make a file called firstscript.R containing Rcode that generates 100 random numbers and plots them, 
+and run this script several times
+
+```{r todo6}
+ # content of firstscript.R  this file shoul be present in working directory.
+ # plot(rnorm(100)) 
+
+source("firstscript.R")
+```
+
+###Todo7
+Put the numbers 31 to 60 in a vector named P and in a matrix with 6 rows and 5 columns
+named Q. Look at the different ways scalars, vectors and matrices
+are denoted in the workspace window.
+
+
+```{r todo7}
+P = seq(from = 31, to = 60, by = 1) 
+Q = matrix(data = P, ncol = 5, nrow = 5) 
+```
+
+###Todo8
+Make a script file which constructs three random normal vectors of length 100.
+Call these vectors x1, x2 and x3. Make a data frame called t with three columns (called a, b and c) 
+containing respectively x1, x1+x2 and x1+x2+x3.
+Call the following functions for this data frame: plot(t) and sd(t)
+
+```{r todo8}
+x1 = seq(1:100) 
+x2 = seq(1:100) 
+x3 = seq(1:100) 
+t= data.frame(a=x1, b=x1+x2, c=x1+x2+x3) 
+plot(t)  
+sd(as.numeric(unlist(t)))
+```
+
+###Todo9
+Add these lines to the script file of the previous section. Try to find out, either by experimenting
+or by using the help, what the meaning is of rgb, the last argument of rgb, lwd, pch, cex.
+
+**rgb** function creates colors corresponding to the given intensities (between 0 and max) of the red, green and blue primaries.
+**lwd** defines the line width or graph.
+**pch** is  plotting 'character', i.e., symbol to use. This can either be a single character or an integer code for one of a set of graphics symbols.
+**cec** For other text symbols, cex = 1 corresponds to the default fontsize of the device, often specified by an argument pointsize. For pch in 0:25 the default size is about 75% of the character height (see par("cin")) 
+```{r todo9}
+plot(t$a, type="l", ylim=range(t),lwd=3, col=rgb(1,1,0,0.7))
+lines(t$b, type="s", lwd=2,col=rgb(0.3,0.4,0.3,0.9))
+points(t$c, pch=22, cex=2,col=rgb(0,0,1,0.3))
+```
+
+###Todo10
+Make a file called tst1.txt in Notepad from the example in Figure 4 and store it in your
+working directory. Write a script to read it, to multiply the column called g by 5 and to store it as tst2.txt.
+
+```{r todo10}
+d=data.frame(a=c(1,2,4,8,16,32),g=c(2,4,8,16,32,64),x=c(3,6,12,24,48,96)) 
+write.table(d,file="tst1.txt",row.names=FALSE) 
+t = read.table("tst1.txt",header = TRUE) 
+t2=data.frame(a=t$a, g=t$g*5, x=t$x) 
+write.table(t2,file="tst2.txt",row.names=FALSE) 
+```
+
+###Todo11
+Compute the mean of the square root of a vector of 100 random numbers. What happens?
+**"mean(sqrt(rnorm(100)))"** gives an error message as rnorm produces negative random numbers too. 
+
+```{r todo11}
+mean(sqrt(rnorm(100)+10)) 
+```
+
+
+###Todo12
+Make a graph with on the x-axis: today, Sinterklaas 2014 and your next birthday and on
+the y-axis the number of presents you expect on each of these days. Tip: make two vectors first.
+
+```{r todo12}
+date=strptime(c("20180215","20141205","20180823"),format = "%Y%m%d") 
+presents=c(0,1,5) 
+plot(date,presents) 
+```
+
+###Todo13
+Make a vector from 1 to 100. Make a for-loop which runs through the whole vector. Multiply
+the elements which are smaller than 5 and larger than 90 with 10 and the other elements with 0.1.
+
+```{r todo13}
+vector=seq(1:100) 
+vector2=c() 
+for(i in 1:100) 
+{ 
+    if(vector[i]<5) 
+        { vector2[i]=vector[i]*5 } 
+    else if(vector[i]>90) 
+        { vector2[i]=vector[i]*10; } 
+    else 
+        { vector2[i]=vector[i]*0.1; } 
+ } 
+vector2
+```
+
+###Todo14
+Write a function for the previous ToDo, so that you can feed it any vector you like
+(as argument). Use a for-loop in the function to do the computation with each element.
+Use the standard R function length in the specification of the counter
+
+```{r todo14}
+z=1:100 
+fun = function(arg1) 
+{ 
+    l = length(arg1) 
+    for(i in 1:l) 
+    {  
+        if (arg1[i] < 5) 
+            { arg1[i] = arg1[i] * 5 } 
+        else if (arg1[i] > 90) 
+            { arg1[i] = arg1[i] * 10}  
+        else 
+            { arg1[i] = arg1[i] * 0.1 } 
+    } 
+return (arg1) 
+} 
+fun(z) 
+```
+
+###Todo15
+perform the above ToDo without a for-loop but with regular vectorcomputations.
+
+```{r todo15}
+z=1:100 
+fun = function(arg1) 
+{ 
+     arg1 = c(arg1[1:4]*5, arg1[5:90]*0.1, arg1[91:100]*10)
+return (arg1) 
+} 
+fun(z)
+```
+
+####Refrences:
+[1] http://kbroman.org/knitr_knutshell/pages/markdown.html
+[2] https://nicercode.github.io/guides/reports/
+[3] https://www.youtube.com/watch?v=DNS7i2m4sB0
+[4] https://www.dataquest.io/blog/how-to-share-data-science-portfolio/
